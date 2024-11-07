@@ -1,0 +1,13 @@
+click
+numpy
+pandas
+requests
+beautifulsoup4
+fake-useragent
+flask
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+ratelimit
+
