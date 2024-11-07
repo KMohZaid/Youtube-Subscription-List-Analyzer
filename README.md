@@ -17,6 +17,11 @@ A comprehensive tool for managing your YouTube subscriptions with enhanced analy
 - Filter channels by upload date range and channel type
 - Progress saving and resumption capability for data fetching
 
+## Screenshots
+
+- Checkout [Screenshots](./screenshots/) folder for screenshots
+> Yea I know, I'm lazy. Also search/filter input name are confusing. i have todo for it
+
 ## Installation
 
 1. Clone this repository:
@@ -90,6 +95,7 @@ This will:
 - [ ] Add proper error handling and recovery
 
 ### 2. UI Enhancements
+- [ ] Proper naming, eg. "Before Last Upload" & "After Last Upload" are confusing. better use "Last Upload Ago" & "Last Upload Not Older Than"
 - [ ] Improve overall visual design
 - [ ] Add responsive design for mobile devices
 - [ ] Implement dark mode
