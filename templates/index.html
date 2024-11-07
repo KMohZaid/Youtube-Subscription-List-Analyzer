@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="mb-4">Enhanced Subscription Data</h1>
+
+        <!-- Display the count message -->
+        <p>{{ count_message }}</p>
+
+        <!-- Filter Form -->
+        <form method="POST">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="before_upload_value" class="form-label">Before Last Upload</label>
+                    <input type="number" id="before_upload_value" name="before_upload_value" class="form-control" value="{{ before_upload_value }}">
+                </div>
+                <div class="col-md-3">
+                    <label for="before_upload_unit" class="form-label">Unit</label>
+                    <select id="before_upload_unit" name="before_upload_unit" class="form-select">
+                        <option value="days" {% if before_upload_unit == "days" %}selected{% endif %}>Days</option>
+                        <option value="weeks" {% if before_upload_unit == "weeks" %}selected{% endif %}>Weeks</option>
+                        <option value="months" {% if before_upload_unit == "months" %}selected{% endif %}>Months</option>
+                        <option value="years" {% if before_upload_unit == "years" %}selected{% endif %}>Years</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="after_upload_value" class="form-label">After Last Upload</label>
+                    <input type="number" id="after_upload_value" name="after_upload_value" class="form-control" value="{{ after_upload_value }}">
+                </div>
+                <div class="col-md-3">
+                    <label for="after_upload_unit" class="form-label">Unit</label>
+                    <select id="after_upload_unit" name="after_upload_unit" class="form-select">
+                        <option value="days" {% if after_upload_unit == "days" %}selected{% endif %}>Days</option>
+                        <option value="weeks" {% if after_upload_unit == "weeks" %}selected{% endif %}>Weeks</option>
+                        <option value="months" {% if after_upload_unit == "months" %}selected{% endif %}>Months</option>
+                        <option value="years" {% if after_upload_unit == "years" %}selected{% endif %}>Years</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Channel Type Filter -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="filter_channel_types" class="form-label">Filter by Channel Type</label>
+                    <select id="filter_channel_types" name="filter_channel_types" class="form-select" multiple>
+                        {% for channel_type in unique_channel_types %}
+                        <option value="{{ channel_type }}" {% if filter_channel_types and channel_type in filter_channel_types %}selected{% endif %}>{{ channel_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sort By & Order -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label for="sort_by" class="form-label">Sort By</label>
+                    <select id="sort_by" name="sort_by" class="form-select">
+                        <option value="subscribers" {% if sort_by == "subscribers" %}selected{% endif %}>Subscribers</option>
+                        <option value="views" {% if sort_by == "views" %}selected{% endif %}>Total Views</option>
+                        <option value="upload_date" {% if sort_by == "upload_date" %}selected{% endif %}>Last Upload Date</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="sort_order" class="form-label">Sort Order</label>
+                    <select id="sort_order" name="sort_order" class="form-select">
+                        <option value="asc" {% if sort_order == "asc" %}selected{% endif %}>Ascending</option>
+                        <option value="desc" {% if sort_order == "desc" %}selected{% endif %}>Descending</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+
+        <!-- Table to display filtered data -->
+        <div class="table-responsive mt-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Avatar</th>
+                        <th class="px-4 py-2">Channel Title</th>
+                        <th class="px-4 py-2">Subscribers</th>
+                        <th class="px-4 py-2">Total Views</th>
+                        <th class="px-4 py-2">Last Upload Date</th>
+                        <th class="px-4 py-2">Channel Type</th>
+                        <th class="px-4 py-2">Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td><img src="{{ row['socialblade_avatar'] }}" alt="Avatar" style="width: 30px; height: 30px; border-radius: 50%;"></td>
+                        <td><a href="{{ row['youtube_url'] }}" target="_blank">{{ row['channel_title'] }}</a></td>
+                        <td>{{ custom_int_to_str(row['socialblade_subscribers']) }}</td>
+                        <td>{{ custom_int_to_str(row['socialblade_total_views']) }}</td>
+                        <td>{{ row['socialblade_last_video_upload_date'] }}</td>
+                        <td>{{ row['socialblade_channel_type'] }}</td>
+                        <td>{{ row['socialblade_created'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

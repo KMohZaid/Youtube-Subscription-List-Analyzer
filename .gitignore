@@ -1,0 +1,11 @@
+__pycache__/
+credentials.json
+enhanced_subscriptions.csv
+enhanced_subscriptions.csv.bkp
+fetch_progress.json
+python-yt-analyze-subs-feed - no venv and pycache.zip
+socialblade_progress.json
+subscriptions.csv
+subscriptions.csv.bkp
+token.json
+venv/
